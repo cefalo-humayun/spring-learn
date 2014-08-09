@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.springapp.autowire"/>
+
+    <!--<bean id="customerBean" class="com.springapp.autowire.Customer">
+        <property name="type" value="1" />
+    </bean>-->
+
+    <bean id="personBean1" class="com.springapp.autowire.Person">
+        <property name="name" value="mkyong1" />
+        <property name="address" value="address 1" />
+        <property name="age" value="28" />
+    </bean>
+
+    <bean id="personBean2" class="com.springapp.autowire.Person">
+        <property name="name" value="mkyong2" />
+        <property name="address" value="address 2" />
+        <property name="age" value="28" />
+    </bean>
+</beans>

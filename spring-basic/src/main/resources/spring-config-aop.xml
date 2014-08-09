@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <context:annotation-config />
+    <!--<context:component-scan base-package="com.springapp.aop"/>-->
+
+    <bean id="customerService" class="com.springapp.aop.CustomerService">
+        <property name="name" value="Yong Mook Kim" />
+        <property name="url" value="http://www.mkyong.com" />
+    </bean>
+
+    <!-- Before Method-->
+    <bean id="hijackBeforeMethodBean" class="com.springapp.aop.HijackBeforeMethod" />
+    <bean id="customerServiceProxyBefore" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="customerService" />
+        <property name="interceptorNames">
+            <list>
+                <value>hijackBeforeMethodBean</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- After Method -->
+    <bean id="hijackAfterMethodBean" class="com.springapp.aop.HijackAfterMethod" />
+    <bean id="customerServiceProxyAfter" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="customerService" />
+        <property name="interceptorNames">
+            <list>
+                <value>hijackAfterMethodBean</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Both before and after method -->
+    <bean id="customerServiceProxyBeforeAfter" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="customerService" />
+        <property name="interceptorNames">
+            <list>
+                <value>hijackBeforeMethodBean</value>
+                <value>hijackAfterMethodBean</value>
+            </list>
+        </property>
+    </bean>
+
+
+    <!-- After Throw advice -->
+    <bean id="hijackThrowExceptionBean" class="com.springapp.aop.HijackThrowException" />
+    <bean id="customerServiceProxyThrow" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="customerService" />
+        <property name="interceptorNames">
+            <list>
+                <value>hijackThrowExceptionBean</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- Around advice -->
+    <bean id="hijackAroundMethodBean" class="com.springapp.aop.HijackAroundMethod" />
+    <bean id="customerServiceProxyAround" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="customerService" />
+        <property name="interceptorNames">
+            <list>
+                <value>hijackAroundMethodBean</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>
